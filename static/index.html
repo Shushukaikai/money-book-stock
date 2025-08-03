@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Money Book</title>
+  <style>
+    body {
+      background-color: gold;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      margin-left: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📈 Money Book 涨势评分</h1>
+  <input id="symbol" placeholder="输入股票代码 (如 AAPL)" />
+  <button onclick="predict()">预测</button>
+  <div id="result"></div>
+
+  <script>
+    async function predict() {
+      const symbol = document.getElementById("symbol").value;
+      const res = await fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ symbol })
+      });
+      const data = await res.json();
+      document.getElementById("result").innerText = data.score !== undefined
+        ? `预测涨势评分：${data.score}`
+        : `出错了：${data.error}`;
+    }
+  </script>
+</body>
+</html>
