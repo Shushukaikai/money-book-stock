@@ -1,5 +1,5 @@
 flask
-pandas
-numpy
-scikit-learn
+torch
 yfinance
+scikit-learn
+numpy
